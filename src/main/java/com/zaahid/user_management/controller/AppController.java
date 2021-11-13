@@ -22,4 +22,11 @@ public class AppController {
         model.addAttribute("listUser", listUser);
         return "index";
     }
+
+    @RequestMapping("/new")
+    public String NewUserPage(Model model){
+        User user = new User();
+        model.addAttribute(user);
+        return "new_user";
+    }
 }
