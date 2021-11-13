@@ -8,7 +8,9 @@ import com.zaahid.user_management.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class AppController {
@@ -28,5 +30,11 @@ public class AppController {
         User user = new User();
         model.addAttribute(user);
         return "new_user";
+    }
+
+    @RequestMapping(value = "/save", method =RequestMethod.POST)
+    public String saveUser(@ModelAttribute User user){
+        services.save(user);
+        return "redirect:/";
     }
 }
