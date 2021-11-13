@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class AppController {
@@ -36,5 +38,13 @@ public class AppController {
     public String saveUser(@ModelAttribute User user){
         services.save(user);
         return "redirect:/";
+    }
+
+    @RequestMapping("edit/{uid}")
+    public ModelAndView EditUserPage(@PathVariable (name="uid") Long uid){
+        ModelAndView mav=new ModelAndView("edit_user");
+        User user=services.get(uid);
+        mav.addObject("user", user);
+        return mav;
     }
 }
