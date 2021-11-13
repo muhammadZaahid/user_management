@@ -47,4 +47,10 @@ public class AppController {
         mav.addObject("user", user);
         return mav;
     }
+
+    @RequestMapping("/delete/{uid}")
+	public String deleteUserPage(@PathVariable (name="uid") Long uid) {
+		services.delete(uid);
+		return "redirect:/";
+	}
 }
