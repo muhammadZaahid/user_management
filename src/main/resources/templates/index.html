@@ -8,6 +8,7 @@
     <div align="center">
         <h1>User List</h1>
         <a href="/new"> Add New User</a>
+        <br>
         <table border="1" cellpadding="10"> 
             <thead>
                 <tr> 
@@ -19,7 +20,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="student : ${listStudent}">
+                <tr th:each="user : ${listUser}">
 					<td th:text="${user.uid}">User ID</td>
                     <td th:text="${user.uname}">User Name</td>
 					<td th:text="${user.phoneNumber}">User Phone Number</td>
