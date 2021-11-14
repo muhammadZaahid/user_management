@@ -33,7 +33,7 @@ public class MyUserDetails implements UserDetails{
     @Override
     public String getPassword() {
         
-        return null;
+        return userAuth.getPassword();
     }
 
     @Override
