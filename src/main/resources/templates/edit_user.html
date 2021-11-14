@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="ISO-8859-1">   
     <title>Edit User</title>
@@ -14,7 +14,8 @@
                     <td>User ID : </td>
                     <td><input type="text" th:field="*{uid}" readonly="readonly"/></td>
                 </tr>
-                <tr>
+                
+                <tr sec:authorize="hasAnyAuthority('ADMIN')">
                     <td>User Name : </td>
                     <td><input type="text" th:field="*{uname}"/></td>
                 </tr>
@@ -22,7 +23,7 @@
                     <td>User Phone Number : </td>
                     <td><input type="text" th:field="*{phoneNumber}"/></td>
                 </tr>
-                <tr>
+                <tr sec:authorize="hasAnyAuthority('ADMIN')">
                     <td>Student E-mail : </td>
                     <td><input type="text" th:field="*{email}"/></td>
                 </tr>
