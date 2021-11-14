@@ -2,6 +2,8 @@ package com.zaahid.user_management.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -25,6 +27,34 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
 
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception{
+
+        auth.authenticationProvider(authenticationProvider());
+    }
+
+    protected void configure(HttpSecurity http) throws Exception{
+
+        http.authorizeRequests()
+        .antMatchers("/").hasAnyAuthority("USER","ADMIN")
+        .antMatchers("/new").hasAnyAuthority("ADMIN")
+        .antMatchers("/edit/**").hasAnyAuthority("ADMIN","USER")
+        .antMatchers("/delete/**").hasAnyAuthority("ADMIN")
+        .antMatchers("/h2-console/**").permitAll()
+        .anyRequest().authenticated()
+        .and()
+        .formLogin().permitAll()
+        .and()
+        .logout().permitAll()
+        .and()
+        .exceptionHandling().accessDeniedPage("/403")
+        ;
+
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
+        
     }
     
 }
